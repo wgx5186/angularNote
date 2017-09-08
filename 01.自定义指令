@@ -1,4 +1,6 @@
 
+
+
 自定义指令的配置参数（定义一个标准指令）
 
 var app = angular.module('MyApp', [], function(){console.log('here')});
@@ -44,3 +46,5 @@ app.directive('namespaceDirectiveName', function factory(injectables) {
         return directiveDefinitionObject;
 
 });
+
+
