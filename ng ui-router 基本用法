@@ -1,0 +1,79 @@
+
+如何引用依赖angular-ui-router
+  angular.module('app',["ui.router"])
+  .config(function($stateProvider){
+      $stateProvider.state(stateName, stateCofig);
+  })
+
+$stateProvider.state(stateName, stateConfig)
+
+stateName是string类型
+
+stateConfig是object类型  
+//statConfig可以为空对象
+$stateProvider.state("home",{});
+
+//state可以有子父级
+$stateProvider.state("home",{});
+$stateProvider.state("home.child",{})
+
+//state可以是链式的
+$stateProvider.state("home",{}).state("about",{}).state("photos",{});
+
+stateConfig包含的字段：template, templateUrl, templateProvider, controller, controllerProvider, resolve, url, params, views, abstract, onEnter, onExit, reloadOnSearch, data
+
+$urlRouteProvider
+$urlRouteProvider.when(whenPath, toPath)
+$urlRouterProvider.otherwise(path)
+$urlRouteProvider.rule(handler)
+
+$state.go
+$state.go(to, [,toParams],[,options])
+形参to是string类型，必须，使用"^"或"."表示相对路径；
+形参toParams可空，类型是对象；
+形参options可空，类型是对象，字段包括：location为bool类型默认true,inherit为bool类型默认true, relative为对象默认$state.$current,notify为bool类型默认为true, reload为bool类型默认为false
+$state.go('photos.detail')
+$state.go('^')到上一级,比如从photo.detail到photo
+$state.go('^.list')到相邻state,比如从photo.detail到photo.list
+$state.go('^.detail.comment')到孙子级state，比如从photo.detail到photo.detial.comment
+
+ui-sref
+ui-sref='stateName'
+ui-sref='stateName({param:value, param:value})'
+
+ui-view
+==没有名称的ui-view
+<div ui-view></div>
+$stateProvider.state("home",{
+    template: "<h1>hi</h1>"
+})
+或者这样配置：
+$stateProvider.state("home"{
+    views: {
+        "": {
+            template: "<h1>hi</h1>"
+        }
+    }
+})
+
+==有名称的ui-view
+<div ui-view="main"></div>
+$stateProvider.state("home",{
+    views: {
+        "main" : {
+            template: "<h1>hi</h1>"
+        }
+    }
+})
+
+==多个ui-view
+<div ui-view></div>
+<div ui-view="data"></div>
+$stateProvider.state("home",{
+    views: {
+        "":{template: "<h1>hi</h1>"},
+        "data": {template: "<div>data</div>"}
+    }
+})
+
+
