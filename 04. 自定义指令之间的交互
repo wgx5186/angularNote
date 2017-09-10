@@ -4,15 +4,9 @@
 
 html：代码
    <!-- 标签指令supperman   以及三个属性指令 的交互  -->
-    <div>
-			  <supperman strength>动感超人--力量</supperman>
-		</div>
-		<div>
-			  <supperman strength speed>动感超人--力量、速度</supperman>
-		</div>
-		<div>
-			  <supperman strength speed light>动感超人--力量、速度、发光</supperman>
-		</div>
+   <supperman strength>动感超人--力量</supperman>	
+   <supperman strength speed>动感超人--力量、速度</supperman>
+   <supperman strength speed light>动感超人--力量、速度、发光</supperman>
     
 js代码：
     myModule.directive("supperman",function(){
