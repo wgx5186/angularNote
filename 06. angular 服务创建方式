@@ -211,9 +211,6 @@
   当我们通过$routeProvider和$locationProvider来配置的时候,其本质就是这些服务是通过provider创建的.
   
 六.装饰服务
-
-  其实通过上面这么多的例子,看也能看懂装饰是什么了...
-
   app.config(function($provide){
       $provide.decorator('name',function($delegate){  
           $delegate.money = '100w';   
