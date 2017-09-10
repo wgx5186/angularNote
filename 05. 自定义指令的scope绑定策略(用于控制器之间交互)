@@ -1,0 +1,96 @@
+
+
+
+@ ： 
+  把当前属性作为字符串传递，还可以绑定外来scope的值，在属性中插入 {{}}即可
+
+= ：
+  与父scope的属性进行双向绑定
+  
+& ：
+  传递一个来自父scope的函数
+  
+案例：
+
+#01    @ 传值   字符串传值
+      html代码：
+          <div ng-controller="myCtrl">
+              <!--传值 花括号-->
+              <drink welcome="{{greeting}}"></drink>,angular
+          </div>
+       js代码：
+           myApp.controller("myCtrl",["$scope",function($scope){
+              $scope.greeting = "hello";
+           }]);
+           myApp.directive("drink",function(){
+              return {
+                  scope: {
+                      welcome: "@"  //@取值
+                  },
+                  restrict: "AE",
+                  template: '<div>{{welcome}}</div>',
+              }
+           })
+
+#02    = 传值  双向绑定
+      html代码：
+          <div ng-controller="myCtrl">
+              <!--传值 无需花括号  双向绑定-->
+              指令外： <input type="text" ng-model="greeting">
+              <drink welcome="greeting"></drink>
+          </div>
+       js代码：
+           myApp.controller("myCtrl",["$scope",function($scope){
+              $scope.greeting = "hello";
+           }]);
+           myApp.directive("drink",function(){
+              return {
+                  scope: {
+                      welcome: "@"  //@取值
+                  },
+                  restrict: "AE",
+                  template: '<div><input ng-model="welcome"></div>',
+              }
+           })
+
+#03    & 传值   传函数
+        html代码：
+          <div ng-controller="myCtrl">
+            <drink sayHelloFn="sayHello(name)"></drink>
+          </div>
+       js代码：
+           myApp.controller("myCtrl",["$scope",function($scope){
+              $scope.sayHello = function(name){
+                  alert("hello" + name);
+              };
+          }]);
+          myApp.directive("drink",function(){
+              return {
+                  scope: {
+                      sayhellofn: "&"  //假如页面中的属性是驼峰命名  接收是全改成小写  绑定时也是小写
+                  },
+                  restrict: "AE",
+                  template: `<div>
+                                  <input ng-model="useName" />
+                                  <button ng-click="sayhellofn({name: useName})">点击</button>
+                              </div>`,
+              }
+          })
+
+
+
+#其他     link函数取值
+        myApp.controller("myCtrl",["$scope",function($scope){
+            $scope.greeting = {
+                text: "hello"
+            }
+        }]);
+        myApp.directive("drink",function(){
+            return {
+                restrict: "AE",
+                template: '<div>{{welcome}}</div>',
+                link: function(scope,elem,attrs){
+                    scope.welcome = attrs.welcome;
+                }
+            }
+        })
