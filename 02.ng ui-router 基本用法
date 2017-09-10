@@ -20,7 +20,9 @@ $stateProvider.state("home.child",{})
 //state可以是链式的
 $stateProvider.state("home",{}).state("about",{}).state("photos",{});
 
-stateConfig包含的字段：template, templateUrl, templateProvider, controller, controllerProvider, resolve, url, params, views, abstract, onEnter, onExit, reloadOnSearch, data
+stateConfig包含的字段：
+    template, templateUrl, templateProvider, controller, controllerProvider, resolve, 
+    url, params, views, abstract, onEnter, onExit, reloadOnSearch, data
 
 $urlRouteProvider
 $urlRouteProvider.when(whenPath, toPath)
@@ -31,7 +33,9 @@ $state.go
 $state.go(to, [,toParams],[,options])
 形参to是string类型，必须，使用"^"或"."表示相对路径；
 形参toParams可空，类型是对象；
-形参options可空，类型是对象，字段包括：location为bool类型默认true,inherit为bool类型默认true, relative为对象默认$state.$current,notify为bool类型默认为true, reload为bool类型默认为false
+形参options可空，类型是对象，字段包括：
+    location为bool类型默认true,inherit为bool类型默认true, relative为对象默认$state.$current,
+    notify为bool类型默认为true, reload为bool类型默认为false
 $state.go('photos.detail')
 $state.go('^')到上一级,比如从photo.detail到photo
 $state.go('^.list')到相邻state,比如从photo.detail到photo.list
