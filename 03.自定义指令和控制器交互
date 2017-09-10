@@ -1,0 +1,64 @@
+
+#01  scope 交互
+
+      html代码：
+          <div ng-controller="myCtrl">
+            <loader>滑入加载</loader>
+          </div>
+
+      js 代码：
+        var myModule = angular.module("MyModule", []);
+        myModule.controller("myCtrl", ["$scope",function($scope){
+            $scope.loadFn = function(){
+                console.log("加载中。。。。。");
+            }
+        }]);
+        myModule.directive("loader",function(){
+            return {
+                restrict: "EA",
+                link: function(scope,elem,attr){
+                    elem.bind("click",function(){
+                        scope.loadFn();           //scope 交互
+                        //scope.$apply("loadFn()"); //scope.$apply("")  交互
+                    });
+                }
+            }
+        });
+  
+#02  指令属性传值 (适用于多个控制器共同一个指令时)
+
+      html代码：
+          <div ng-controller="myCtrl1">
+            <loader loadStart="loadFn1()">滑入加载</loader>
+          </div>
+          <div ng-controller="myCtrl2">
+            <loader loadStart="loadFn2()">滑入加载</loader>
+          </div>
+
+      js 代码：
+        var myModule = angular.module("MyModule", []);
+        myModule.controller("myCtrl1", ["$scope",function($scope){
+            $scope.loadFn1 = function(){
+                console.log("加载中。。。。。");
+            }
+        }]);
+        myModule.controller("myCtrl2", ["$scope",function($scope){
+            $scope.loadFn2 = function(){
+                console.log("加载中。。。。。");
+            }
+        }]);
+        myModule.directive("loader",function(){
+            return {
+                restrict: "EA",
+                link: function(scope,elem,attr){
+                    elem.bind("click",function(){
+                        scope.$apply(attr.loadstart);
+                    });
+                }
+            }
+        });
+        
+
+
+
+
