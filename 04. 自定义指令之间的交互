@@ -1,3 +1,70 @@
+
+
 #案例
 
 html：代码
+   <!-- 标签指令supperman   以及三个属性指令 的交互  -->
+    <div>
+			  <supperman strength>动感超人--力量</supperman>
+		</div>
+		<div>
+			  <supperman strength speed>动感超人--力量、速度</supperman>
+		</div>
+		<div>
+			  <supperman strength speed light>动感超人--力量、速度、发光</supperman>
+		</div>
+    
+js代码：
+    myModule.directive("supperman",function(){
+        return {
+            scope: {},//创建独立作用域
+            restrict: "EA",
+            controller: function($scope){         //对外开放三个函数
+                $scope.supperManAttr = [];
+                this.addStrength = function(){
+                    $scope.supperManAttr.push("strength");
+                };
+                this.addSpeed = function(){
+                    $scope.supperManAttr.push("speed");
+                };
+                this.addLigth = function(){
+                    $scope.supperManAttr.push("ligth");
+                };
+            },
+            link: function(scope,elem,attr){
+                elem.bind("click",function(){
+                    console.log(scope.supperManAttr);
+                });
+            }
+        }
+    });
+    myModule.directive("strength",function(){
+        return {
+            require: "^supperman",  //依赖的指令名称
+            link: function(scope,elem,attr,supperManCtr){  //supperManCtr  依赖指令的 控制器
+                supperManCtr.addStrength();
+            }
+        }
+    });
+    myModule.directive("speed",function(){
+        return {
+            require: "^supperman",//依赖的指令名称
+            link: function(scope,elem,attr,supperManCtr){
+                supperManCtr.addSpeed();
+            }
+        }
+    });
+    myModule.directive("light",function(){
+        return {
+            require: "^supperman",//依赖的指令名称
+            link: function(scope,elem,attr,supperManCtr){
+                supperManCtr.addLigth();
+            }
+        }
+    });
+    
+    
+    
+    
+    
+    
